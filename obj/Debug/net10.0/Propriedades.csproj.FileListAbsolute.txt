@@ -1,0 +1,14 @@
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\obj\Debug\net10.0\Propriedades.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\obj\Debug\net10.0\Propriedades.AssemblyInfoInputs.cache
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\obj\Debug\net10.0\Propriedades.AssemblyInfo.cs
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\obj\Debug\net10.0\Propriedades.csproj.CoreCompileInputs.cache
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\bin\Debug\net10.0\Propriedades.exe
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\bin\Debug\net10.0\Propriedades.deps.json
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\bin\Debug\net10.0\Propriedades.runtimeconfig.json
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\bin\Debug\net10.0\Propriedades.dll
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\bin\Debug\net10.0\Propriedades.pdb
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\obj\Debug\net10.0\Propriedades.dll
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\obj\Debug\net10.0\refint\Propriedades.dll
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\obj\Debug\net10.0\Propriedades.pdb
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\obj\Debug\net10.0\Propriedades.genruntimeconfig.cache
+C:\Users\samsa\OneDrive\Documentos\cSharp\exercicio01\obj\Debug\net10.0\ref\Propriedades.dll
