@@ -1,9 +1,5 @@
 ﻿// mini rpg feito em c#
 //Nomeado de PHOENIX ARENA!
-
-/*
-4 o terceiiro atq do boneco é p diddy 70% de molestar o inimgo e causar 10-30 de dano mas 30% de chance de te molestar e causar 20-40 de dano 
-*/
 using System;
 
 class Program
@@ -46,23 +42,26 @@ if (!int.TryParse(Console.ReadLine(), out escolha))
     continue;
 }
 Utils.EscreverColorido("-----------------------", ConsoleColor.DarkMagenta);
-if (escolha == 1)
+            switch (escolha)
             {
-                jogador.Atacar(inimigo);
-            }        
-else if(escolha == 2)
-            {
-                jogador.Stun(inimigo);
-            }        
-else if(escolha == 3)
-            {
-                jogador.Curar();
-            }
-else if(escolha == 4)
-        {
-            Console.WriteLine("Você fugiu!");
+            case 1:
+            jogador.Atacar(inimigo);
+            break; 
+            case 2:
+            jogador.Stun(inimigo);
+            break;
+            case 3:
+            jogador.Curar();
+            break;
+            case 4:
+            Console.WriteLine("Você fugiu!"); 
             Environment.Exit(0);
-        }
+            break;
+            default:
+            Console.WriteLine("Escolha nao reconhecida!");
+            continue;
+                
+            }
 // CHECAR VIDA INIMIGO
 if(inimigo.vida <= 0)
             {
@@ -105,8 +104,8 @@ if(jogador.vida <= 0)
             Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
             Console.WriteLine("STATUS:");
                 Console.ResetColor();
-            Console.WriteLine("Vida do Jogador: " + Terminal.BarraDeVida(jogador.vida, 100));
-            Console.WriteLine("Vida do Inimigo: " + Terminal.BarraDeVida(inimigo.vida, 75));
+            Console.WriteLine($"Vida do Jogador: {Terminal.BarraDeVida(jogador.vida, 100) } ");
+            Console.WriteLine($"Vida do Inimigo: {Terminal.BarraDeVida(inimigo.vida, 75) } ");
                 Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 Console.ResetColor();
@@ -120,8 +119,6 @@ class Personagem
     public int curaQtd = 5;
 
     public void Atacar(Inimigo inimigo)
-
-
     {
         bool acertou;
         if(inimigo.stunRoud > 0)
@@ -186,14 +183,10 @@ class Personagem
         Console.ResetColor();
         Console.WriteLine("poções de vida restantes!");
         }
-        
-        
-        
     }
 }
 class Inimigo
 {
-
     public int vida;
     public string nome;
     public int stunRoud;
@@ -305,11 +298,8 @@ static class Terminal
 }
 }
 static class Utils
-
-
 {
      public static Random random = new();
-
     public static void EscreverColorido(string texto, ConsoleColor cor)
     {
         Console.ForegroundColor = cor;
