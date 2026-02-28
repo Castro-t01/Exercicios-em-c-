@@ -10,106 +10,11 @@ class Program
 Personagem jogador = new();
  jogador.vida = 100;
 Inimigo inimigo = new();
- inimigo.vida = 75;
+ inimigo.vida = 75; 
 
 Terminal.BemVindo(jogador, inimigo);
 Terminal.Regras(jogador, inimigo);
-Utils.EscreverColorido("!INFO! Você deseja saber como funciona as ações do personagem? S/N ", ConsoleColor.DarkMagenta);
-string info = Console.ReadLine().Trim().ToUpper();
-if(info == "S")
-        {
-            Terminal.Info();
-        }
-
-int contador = 0;
-int escolha;
-
-//------------------------ RODADAS ------------------------
-while(jogador.vida > 0 && inimigo.vida > 0)
-        {
-            contador++;
-Utils.EscreverColorido($"\nEstamos na rodada {contador} e a vez é do jogador: ", ConsoleColor.Yellow);
-// TURNO DO JOGADOR
-Console.WriteLine($"Jogador ({jogador.nome}), você deseja:");
-Console.WriteLine("1.Atacar");
-Console.WriteLine("2.Habilidade: SIXSEVEN");
-Console.WriteLine("3.Curar");
-Console.WriteLine("4.Fugir");
-if (!int.TryParse(Console.ReadLine(), out escolha))
-{
-    Console.WriteLine("Número inválido!");
-    contador--;
-    continue;
-}
-Utils.EscreverColorido("-----------------------", ConsoleColor.DarkMagenta);
-            switch (escolha)
-            {
-            case 1:
-            jogador.Atacar(inimigo);
-            break; 
-            case 2:
-            jogador.Stun(inimigo);
-            break;
-            case 3:
-            jogador.Curar();
-            break;
-            case 4:
-            Console.WriteLine("Você fugiu!"); 
-            Environment.Exit(0);
-            break;
-            default:
-            Console.WriteLine("Escolha nao reconhecida!");
-            continue;
-                
-            }
-// CHECAR VIDA INIMIGO
-if(inimigo.vida <= 0)
-            {
-                Console.WriteLine($"Você ganhou!!!! Matou o seu {inimigo.nome}");
-                Environment.Exit(0);
-            }
-// VEZ DO INIMIGO
-Utils.EscreverColorido("-----------------------", ConsoleColor.DarkMagenta);
-    if (inimigo.stunRoud <= 0)
-{
-    Utils.EscreverColorido($"Vez do {inimigo.nome}",ConsoleColor.Yellow);
-    inimigo.Atacar(jogador);
-}
-//CALC DE STUN
-else
-{
-    inimigo.stunRoud--;
-
-    Console.WriteLine("O Inimigo está stunado e não irá jogar esse round!");
-
-    if (inimigo.stunRoud > 0)
-    {
-        Console.WriteLine($"Rounds de stun: {inimigo.stunRoud}");
-    }
-    else
-    {
-        Console.WriteLine("O inimigo não está mais sentindo vergonha e voltará ao normal na proxima rodada!");
-    }
-}
-
-// CHEGAR VIDA DO PERSONAGEM
-if(jogador.vida <= 0)
-            {
-
-                Console.WriteLine($"Você perdeuu!!!! Morreu para o seu {inimigo.nome}");
-                Environment.Exit(0);
-            }
-//STATUS DO GAME
-                Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-            Console.WriteLine("STATUS:");
-                Console.ResetColor();
-            Console.WriteLine($"Vida do Jogador: {Terminal.BarraDeVida(jogador.vida, 100) } ");
-            Console.WriteLine($"Vida do Inimigo: {Terminal.BarraDeVida(inimigo.vida, 75) } ");
-                Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                Console.ResetColor();
- }   
+Terminal.Game(jogador, inimigo);
 }
 }
 class Personagem
@@ -117,6 +22,7 @@ class Personagem
     public int vida;
     public string nome;
     public int curaQtd = 5;
+    public int dmg = 26;
 
     public void Atacar(Inimigo inimigo)
     {
@@ -132,7 +38,7 @@ class Personagem
         if(acertou)
         {
             Utils.EscreverColorido("Você acertou o inimigo!", ConsoleColor.Green);
-            int dano = Utils.random.Next(5,26);
+            int dano = Utils.random.Next(5,dmg);
             Console.Write("O dano no inimigo foi de ");
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write($"{dano}\n");
@@ -227,8 +133,98 @@ class Inimigo
 }
 static class Terminal
 {
-    
+    public static void Game(Personagem jogador, Inimigo inimigo)
+    {
+        Utils.EscreverColorido("!INFO! Você deseja saber como funciona as ações do personagem? S/N ", ConsoleColor.DarkMagenta);
+        string info = Console.ReadLine().Trim().ToUpper();
+        if(info == "S")
+        {
+            Terminal.Info();
+        }
 
+int contador = 0;
+int escolha;
+
+//------------------------ RODADAS ------------------------
+while(jogador.vida > 0 && inimigo.vida > 0)
+        {
+            contador++;
+Utils.EscreverColorido($"\nEstamos na rodada {contador} e a vez é do jogador: ", ConsoleColor.Yellow);
+// TURNO DO JOGADOR
+Console.WriteLine($"Jogador ({jogador.nome}), você deseja:");
+Console.WriteLine("1.Atacar");
+Console.WriteLine("2.Habilidade: SIXSEVEN");
+Console.WriteLine("3.Curar");
+Console.WriteLine("4.Fugir");
+if (!int.TryParse(Console.ReadLine(), out escolha))
+{
+    Console.WriteLine("Número inválido!");
+    contador--;
+    continue;
+}
+Utils.EscreverColorido("-----------------------", ConsoleColor.DarkMagenta);
+            switch (escolha)
+            {
+            case 1:
+            jogador.Atacar(inimigo);
+            break; 
+            case 2:
+            jogador.Stun(inimigo);
+            break;
+            case 3:
+            jogador.Curar();
+            break;
+            case 4:
+            Console.WriteLine("Você fugiu!"); 
+            Environment.Exit(0);
+            break;
+            default:
+            Console.WriteLine("Escolha nao reconhecida!");
+            continue;
+                
+            }
+// CHECAR VIDA INIMIGO
+if(inimigo.vida <= 0)
+            {
+                Console.WriteLine($"Você ganhou!!!! Matou o seu {inimigo.nome}");
+                Environment.Exit(0);
+            }
+// VEZ DO INIMIGO
+Utils.EscreverColorido("-----------------------", ConsoleColor.DarkMagenta);
+    if (inimigo.stunRoud <= 0)
+{
+    Utils.EscreverColorido($"Vez do {inimigo.nome}",ConsoleColor.Yellow);
+    inimigo.Atacar(jogador);
+}
+//CALC DE STUN
+else
+{
+    inimigo.stunRoud--;
+
+    Console.WriteLine("O Inimigo está stunado e não irá jogar esse round!");
+
+    if (inimigo.stunRoud > 0)
+    {
+        Console.WriteLine($"Rounds de stun: {inimigo.stunRoud}");
+    }
+    else
+    {
+        Console.WriteLine("O inimigo não está mais sentindo vergonha e voltará ao normal na proxima rodada!");
+    }
+}
+
+// CHEGAR VIDA DO PERSONAGEM
+if(jogador.vida <= 0)
+            {
+
+                Console.WriteLine($"Você perdeuu!!!! Morreu para o seu {inimigo.nome}");
+                Environment.Exit(0);
+            }
+//STATUS DO GAME
+                Terminal.Status();
+ }
+
+    }
     public static void BemVindo(Personagem jogador, Inimigo inimigo)
     {
         Console.ForegroundColor = ConsoleColor.Green;
@@ -282,6 +278,8 @@ static class Terminal
         Console.ResetColor();
     }
     public static string BarraDeVida(int vidaAtual, int vidaMaxima)
+
+
 {
     int tamanhoBarra = 10; // quantidade de bloquinhos
     int vidaCalculada = vidaAtual;
@@ -296,6 +294,18 @@ static class Terminal
 
     return $"[{barra}] {vidaCalculada}/{vidaMaxima}";
 }
+    public static void Status(Personagem jogador, Inimigo inimigo)
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+            Console.WriteLine("STATUS:");
+                Console.ResetColor();
+            Console.WriteLine($"Vida do Jogador: {Terminal.BarraDeVida(jogador.vida, 100) } ");
+            Console.WriteLine($"Vida do Inimigo: {Terminal.BarraDeVida(inimigo.vida, 75) } ");
+                Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+                Console.ResetColor();
+    }
 }
 static class Utils
 {
